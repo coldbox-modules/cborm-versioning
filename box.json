@@ -1,0 +1,38 @@
+{
+    "name":"cborm-versioning",
+    "version":"0.0.0",
+    "author":"Eric Peterson",
+    "location":"elpete/cborm-versioning#v0.0.0",
+    "homepage":"https://github.com/elpete/cborm-versioning",
+    "documentation":"https://github.com/elpete/cborm-versioning",
+    "repository":{
+        "type":"git",
+        "URL":"https://github.com/elpete/cborm-versioning"
+    },
+    "bugs":"https://github.com/elpete/cborm-versioning/issues",
+    "slug":"cborm-versioning",
+    "shortDescription":"Version any orm entity for easy rollbacks",
+    "description":"Version any orm entity for easy rollbacks",
+    "type":"modules",
+    "dependencies":{
+        
+    },
+    "devDependencies":{
+        "coldbox":"^4.3.0+188",
+        "testbox":"^2.4.0+80"
+    },
+    "installPaths":{
+        "testbox":"testbox",
+        "coldbox":"tests/resources/app/coldbox"
+    },
+    "scripts":{
+        "postVersion":"package set location='elpete/cborm-versioning#v`package version`'",
+        "onRelease":"publish",
+        "postPublish":"!git push && !git push --tags"
+    },
+    "ignore":[
+        "**/.*",
+        "test",
+        "tests"
+    ]
+}
