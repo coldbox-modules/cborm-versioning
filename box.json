@@ -15,7 +15,7 @@
     "description":"Version any orm entity for easy rollbacks",
     "type":"modules",
     "dependencies":{
-        
+        "cborm":"^1.3.0+47"
     },
     "devDependencies":{
         "coldbox":"^4.3.0+188",
@@ -23,7 +23,8 @@
     },
     "installPaths":{
         "testbox":"testbox",
-        "coldbox":"tests/resources/app/coldbox"
+        "coldbox":"tests/resources/app/coldbox",
+        "cborm":"modules/cborm"
     },
     "scripts":{
         "postVersion":"package set location='elpete/cborm-versioning#v`package version`'",

@@ -1,0 +1,7 @@
+{
+  "dependencies": {
+    "coldbox-elixir": "^2.1.0",
+    "coldbox-elixir-browsersync": "^1.2.0",
+    "gulp": "^3.9.1"
+  }
+}
