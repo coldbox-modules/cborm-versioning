@@ -30,14 +30,19 @@ component {
         for ( var prop in properties ) {
             var val = invoke( entity, "get#prop#" );
 
+            if ( isNull( val ) ) {
+                val = "";
+            }
+
+            else if ( isObject( val ) ) {
+                val = getPrimaryKeyValue( val );
+            }
+
             // if it is an array of entities
-            if ( isArray( val ) && ! arrayIsEmpty( val ) && isObject( val[ 1 ] ) ) {
+            else if ( isArray( val ) && ! arrayIsEmpty( val ) && isObject( val[ 1 ] ) ) {
                 var ids = [];
                 for ( var relationship in val ) {
-                    var relationshipKeyName = BaseORMService.getKey(
-                        BaseORMService.getEntityGivenName( relationship )
-                    );
-                    arrayAppend( ids, invoke( relationship, "get#relationshipKeyName#" ) );
+                    arrayAppend( ids, getPrimaryKeyValue( relationship ) );
                 }
                 val = ids;
             }
@@ -70,6 +75,13 @@ component {
         } 
 
         return identifiers;
+    }
+
+    private any function getPrimaryKeyValue( required any entity ) {
+        var relationshipKeyName = BaseORMService.getKey(
+            BaseORMService.getEntityGivenName( entity )
+        );
+        return invoke( entity, "get#relationshipKeyName#" );
     }
 
 }
