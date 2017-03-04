@@ -28,7 +28,7 @@ component {
 
     this.ormEnabled = true;
     this.ormSettings = {
-        cfclocation = [ "/app/models" ],
+        cfclocation = [ "/app/models", "/root/models" ],
         dbcreate = "dropcreate",
         logSQL = true,
         flushAtRequestEnd = false,
