@@ -6,6 +6,12 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     application.wirebox.getInstance( "Versioner@cborm-versioning" )
                 );
             } );
+            afterEach( function() {
+                var BaseORMService = application.wirebox.getInstance( "BaseORMService@cborm" );
+                BaseORMService.deleteAll( "StringVersionedModel" );
+                BaseORMService.deleteAll( "IntegerVersionedModel" );
+                BaseORMService.deleteAll( "Version" );
+            } );
             it( "listens for the ORMPreUpdate and ORMPreInsert interception points", function() {
                 expect( versioner ).toHaveKey( "ORMPreInsert" );
                 expect( versioner.ORMPreInsert ).toBeTypeOf( "function" );
@@ -60,9 +66,9 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     entity.setId( id );
 
                     var mockEvent = createMock( "coldbox.system.web.context.RequestContext" );
-                    var mockInterceptData = { entity = entity };
+                    var mockInterceptData = { entity = entity, oldData = {} };
 
-                    versioner.ORMPreInsert( mockEvent, mockInterceptData );
+                    versioner.ORMPreUpdate( mockEvent, mockInterceptData );
 
                     var versions = application.wirebox.getInstance( "Version@cborm-versioning" )
                         .findAllWhere(
@@ -78,6 +84,60 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
 
                 xit( "can handle composite primary keys", function() {
                     fail( "test not implemented yet" );
+                } );
+            } );
+
+            describe( "cleaning up versions if a numeric value is assigned to the `versioned` attribute", function() {
+                it( "does not delete any versions if no numeric value is specified", function() {
+                    var entityName = "IntegerVersionedModel";
+                    var id = 500;
+                    var entity = application.wirebox
+                        .getInstance( "IntegerVersionedModel" )
+                        .setId( id )
+                        .setPropertyA( "foo" );
+
+                    versioner.version( entity );
+                    entity.setPropertyA( "bar" );
+                    versioner.version( entity );
+
+                    var versions = application.wirebox.getInstance( "Version@cborm-versioning" )
+                        .findAllWhere(
+                            criteria = { modelName = entityName, modelId = id },
+                            sortOrder = "createdTime"
+                        );
+
+                    expect( isNull( versions ) )
+                        .toBeFalse( "Two versions for entity [#entityName#] and id [#id#] should have been found." );
+                    expect( versions ).toBeArray();
+                    expect( versions ).notToBeEmpty( "Two versions for entity [#entityName#] and id [#id#] should have been found." );
+                    expect( versions ).toHaveLength( 2, "Two versions for entity [#entityName#] and id [#id#] should have been found." );
+                } );
+
+                it( "only keeps n number of versions per model name and model id where n is the value of the `versioned` attribute", function() {
+                    var entityName = "KeepOneIntegerVersionedModel";
+                    var id = 500;
+                    var entity = application.wirebox
+                        .getInstance( "KeepOneIntegerVersionedModel" )
+                        .setId( id )
+                        .setPropertyA( "foo" );
+
+                    versioner.version( entity );
+                    sleep( 1500 );
+                    entity.setPropertyA( "bar" );
+                    versioner.version( entity );
+
+                    var versions = application.wirebox.getInstance( "Version@cborm-versioning" )
+                        .findAllWhere(
+                            criteria = { modelName = entityName, modelId = id },
+                            sortOrder = "createdTime"
+                        );
+
+                    expect( isNull( versions ) )
+                        .toBeFalse( "One version for entity [#entityName#] and id [#id#] should have been found." );
+                    expect( versions ).toBeArray();
+                    expect( versions ).notToBeEmpty( "One version for entity [#entityName#] and id [#id#] should have been found." );
+                    expect( versions ).toHaveLength( 1, "One version for entity [#entityName#] and id [#id#] should have been found." );
+                    expect( versions[ 1 ].getModelMemento().propertyA ).toBe( "bar" );
                 } );
             } );
         } );

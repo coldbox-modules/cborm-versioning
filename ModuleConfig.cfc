@@ -6,6 +6,8 @@ component {
     this.dependencies = [ "cborm" ];
 
     function configure() {
-        //
+        interceptors = [
+            { class = "#moduleMapping#.models.Versioner" }
+        ];
     }
 }
