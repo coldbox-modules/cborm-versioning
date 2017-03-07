@@ -1,8 +1,8 @@
 {
     "name":"cborm-versioning",
-    "version":"0.0.0",
+    "version":"1.0.0",
     "author":"Eric Peterson",
-    "location":"elpete/cborm-versioning#v0.0.0",
+    "location":"elpete/cborm-versioning#v1.0.0",
     "homepage":"https://github.com/elpete/cborm-versioning",
     "documentation":"https://github.com/elpete/cborm-versioning",
     "repository":{
