@@ -2,7 +2,7 @@ component {
 
     property name="BaseORMService" inject="BaseORMService@cborm";
 
-    public struct function generateMemento( required any entity ) {
+    public struct function generate( required any entity ) {
         var md = getMetadata( entity );
 
         guardAgainstNonOrmEntities( md );

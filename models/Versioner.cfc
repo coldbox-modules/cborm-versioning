@@ -64,7 +64,7 @@ component {
         var version = wirebox.getInstance( "Version@cborm-versioning" );
         version.setModelName( BaseORMService.getEntityGivenName( entity ) );
         version.setModelId( getPrimaryKeyValue( entity ) );
-        version.setModelMemento( Mementoizer.generateMemento( entity ) );
+        version.setModelMemento( Mementoizer.generate( entity ) );
         version.setCreatedTime( createdTime );
 
         if ( save ) {

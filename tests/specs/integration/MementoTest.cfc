@@ -9,7 +9,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                 var nonOrmModel = application.wirebox.getInstance( "NonOrmModel" );
 
                 try {
-                    mementoizer.generateMemento( nonOrmModel );
+                    mementoizer.generate( nonOrmModel );
                 }
                 catch ( InvalidEntityType e ) {
                     expect( e.message ).toBe( "Cannot mementoize a non-ORM entity" );
@@ -26,7 +26,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     noRelationshipsModel.setPropertyA( "foo" );
                     noRelationshipsModel.setPropertyB( "bar" );
                     
-                    var memento = mementoizer.generateMemento( noRelationshipsModel );
+                    var memento = mementoizer.generate( noRelationshipsModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -43,7 +43,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     oneToManyModel.setId( 1 );
                     oneToManyModel.setPropertyA( "foo" );
 
-                    var memento = mementoizer.generateMemento( oneToManyModel );
+                    var memento = mementoizer.generate( oneToManyModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -61,7 +61,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToOneModel.setId( 1 );
                     oneToManyModel.addRelationshipA( manyToOneModel );
 
-                    var memento = mementoizer.generateMemento( oneToManyModel );
+                    var memento = mementoizer.generate( oneToManyModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -83,7 +83,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToOneModelB.setId( 3 );
                     oneToManyModel.addRelationshipA( manyToOneModelB );
 
-                    var memento = mementoizer.generateMemento( oneToManyModel );
+                    var memento = mementoizer.generate( oneToManyModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -99,7 +99,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToOneModel.setId( 1 );
                     manyToOneModel.setPropertyB( "bar" );
 
-                    var memento = mementoizer.generateMemento( manyToOneModel );
+                    var memento = mementoizer.generate( manyToOneModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -117,7 +117,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     oneToManyModel.setId( 1 );
                     manyToOneModel.setRelationshipB( oneToManyModel );
 
-                    var memento = mementoizer.generateMemento( manyToOneModel );
+                    var memento = mementoizer.generate( manyToOneModel );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -133,7 +133,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToManyA.setId( 1 );
                     manyToManyA.setPropertyA( "bar" );
 
-                    var memento = mementoizer.generateMemento( manyToManyA );
+                    var memento = mementoizer.generate( manyToManyA );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -151,7 +151,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToManyB.setId( 1 );
                     manyToManyA.addRelationshipA( manyToManyB );
 
-                    var memento = mementoizer.generateMemento( manyToManyA );
+                    var memento = mementoizer.generate( manyToManyA );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -173,7 +173,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     manyToManyB2.setId( 3 );
                     manyToManyA.addRelationshipA( manyToManyB2 );
 
-                    var memento = mementoizer.generateMemento( manyToManyA );
+                    var memento = mementoizer.generate( manyToManyA );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -189,7 +189,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     oneToOneA.setId( 1 );
                     oneToOneA.setPropertyA( "bar" );
 
-                    var memento = mementoizer.generateMemento( oneToOneA );
+                    var memento = mementoizer.generate( oneToOneA );
 
                     expect( memento ).toBe( {
                         "id" = 1,
@@ -207,7 +207,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     oneToOneB.setId( 1 );
                     oneToOneA.setRelationshipA( oneToOneB );
 
-                    var memento = mementoizer.generateMemento( oneToOneA );
+                    var memento = mementoizer.generate( oneToOneA );
 
                     expect( memento ).toBe( {
                         "id" = 1,
