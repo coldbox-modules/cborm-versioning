@@ -34,6 +34,11 @@ component
     property name="createdTime"  
                 ormtype="timestamp";
 
+    /**
+    * Creates an entity from the data stored in the version
+    *
+    * @returns The entity represented by the version
+    */
     public any function restore() {
         return populator.populateFromStruct(
             target = entityNew( getModelName() ),
@@ -43,6 +48,12 @@ component
         );
     }
 
+    /**
+    * Wrapper method to serialize any non-simple values
+    * saved to modelMeneto.
+    *
+    * @returns This same version (to continue chaining).
+    */
     public Version function setModelMemento( memento ) {
         if( ! isSimpleValue( memento ) ){
             memento = serializeJSON( memento );
@@ -53,6 +64,12 @@ component
         return this;
     }
 
+    /**
+    * Wrppaer method to deserialize any JSON values
+    * stored in modelMemento.
+    *
+    * @returns The de-serialized value of modelMemento.
+    */
     public any function getModelMemento() {
         if ( isJSON( variables.modelMemento ) ) {
             return deserializeJSON( variables.modelMemento );
