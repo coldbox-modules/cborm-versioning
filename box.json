@@ -23,8 +23,7 @@
     },
     "installPaths":{
         "testbox":"testbox",
-        "coldbox":"tests/resources/app/coldbox",
-        "cborm":"modules/cborm"
+        "coldbox":"tests/resources/app/coldbox"
     },
     "scripts":{
         "postVersion":"package set location='elpete/cborm-versioning#v`package version`'",
