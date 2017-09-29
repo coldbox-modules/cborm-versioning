@@ -62,21 +62,22 @@ component singleton{
         date createdTime = now(),
         boolean save = true
     ) {
-        var version = versionService.new();
-        version.setModelName( BaseORMService.getEntityGivenName( entity ) );
-        version.setModelId( getPrimaryKeyValue( entity ) );
-        version.setModelMemento( Mementoizer.generate( entity ) );
-        version.setCreatedTime( createdTime );
+        var newVersion = versionService.new();
+
+        newVersion.setModelName( BaseORMService.getEntityGivenName( entity ) );
+        newVersion.setModelId( getPrimaryKeyValue( entity ) );
+        newVersion.setModelMemento( Mementoizer.generate( entity ) );
+        newVersion.setCreatedTime( createdTime );
 
         if ( save ) {
-            version.save();
+            newVersion.save();
         }
 
         if ( shouldTrimVersions( entity ) ) {
             trimVersions( entity );
         }
 
-        return version;
+        return newVersion;
     }
 
     /**
