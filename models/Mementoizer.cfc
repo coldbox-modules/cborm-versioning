@@ -22,7 +22,7 @@ component {
     * @throws InvalidEntityType
     */
     private function guardAgainstNonOrmEntities( required any entity ) {
-        if ( ! structKeyExists( getMetadata( entity ), "persistent" ) ) {
+        if ( ! structKeyExists( getMetadata( entity ), "persistent" ) || !getMetadata( entity ).persistent ) {
             throw(
                 type = "InvalidEntityType",
                 message = "Cannot mementoize a non-ORM entity"
