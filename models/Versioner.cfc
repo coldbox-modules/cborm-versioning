@@ -1,8 +1,9 @@
-component {
+component singleton{
 
     property name="wirebox" inject="wirebox";
     property name="BaseORMService" inject="BaseORMService@cborm";
     property name="Mementoizer" inject="Mementoizer@cborm-versioning";
+    property name="versionService" inject="entityService:Version";
 
     /**
     * Create a version for `versioned` entites on insert.
@@ -61,7 +62,7 @@ component {
         date createdTime = now(),
         boolean save = true
     ) {
-        var version = wirebox.getInstance( "Version@cborm-versioning" );
+        var version = versionService.new();
         version.setModelName( BaseORMService.getEntityGivenName( entity ) );
         version.setModelId( getPrimaryKeyValue( entity ) );
         version.setModelMemento( Mementoizer.generate( entity ) );
