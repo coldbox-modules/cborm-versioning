@@ -30,6 +30,8 @@ before_script:
   # create database
   - mysql -u root -e 'create database cborm_versioning;'
   - box server start cfengine=$ENGINE port=8500
+  # Sleep for 30 seconds to allow for slow ACF startup times
+  - sleep 30
 
 script:
   - box testbox run runner='http://127.0.0.1:8500/tests/runner.cfm' reporter=text
