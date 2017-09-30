@@ -27,11 +27,9 @@ install:
 - box install
 
 before_script:
-- box server start cfengine=$ENGINE port=8500
-
-before_script:
   # create database
   - mysql -u root -e 'create database cborm_versioning;'
+  - box server start cfengine=$ENGINE port=8500
 
 script:
   - box testbox run runner='http://127.0.0.1:8500/tests/runner.cfm'
