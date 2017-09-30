@@ -22,6 +22,15 @@ component {
         return "/" & arrayToList( pArray , "/" ) & "/";
     }
 
+    	// Datasource definitions For Standalone mode/travis mode.
+	if( directoryExists( "/home/travis" ) ){
+		this.datasources[ "cborm_versioning" ] = {
+			  class 			: 'org.gjt.mm.mysql.Driver',
+			  connectionString	: 'jdbc:mysql://localhost:3306/cborm_versioning?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&',
+			  username			: 'root'
+		};
+	}
+
     // created in cfadmin
     this.datasource = "cborm_versioning";
     this.mappings[ "/cborm" ] = rootPath & "modules/cborm";
