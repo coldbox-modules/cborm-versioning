@@ -8,7 +8,7 @@ env:
     - ENGINE=lucee@5
     - ENGINE=adobe@2016
     - ENGINE=adobe@11
-    - ENGINE=adobe@10
+    #- ENGINE=adobe@10 - Adobe removed from matrix because they do not support App.cfc datasource definitions
 
 addons:
   apt:
