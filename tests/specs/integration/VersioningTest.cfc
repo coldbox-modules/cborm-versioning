@@ -19,6 +19,9 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
             } );
 
             it( "only versions entities with a 'versioned' attribute on the component", function() {
+                
+                prepareMock( versioner );
+
                 versioner.$( "version" );
 
                 var entity = application.wirebox.getInstance( "NonVersionedModel" );

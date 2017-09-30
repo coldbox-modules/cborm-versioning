@@ -1,4 +1,4 @@
-component singleton{
+component {
 
     property name="wirebox" inject="wirebox";
     property name="BaseORMService" inject="BaseORMService@cborm";
