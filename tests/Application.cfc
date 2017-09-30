@@ -47,6 +47,8 @@ component {
     };
 
     function onRequestStart() {
+        structDelete( application, "cbController" );
+		structDelete( application, "wirebox" );	
         ORMReload();
     }
 }

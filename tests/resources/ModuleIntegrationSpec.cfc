@@ -1,5 +1,6 @@
 component extends="coldbox.system.testing.BaseTestCase" {
-
+    this.loadColdbox=true;
+    this.unloadColdbox=false;
     /**
     * @beforeAll
     */
