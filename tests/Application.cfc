@@ -22,6 +22,30 @@ component {
         return "/" & arrayToList( pArray , "/" ) & "/";
     }
 
+    	// Datasource definitions For Standalone mode/travis mode.
+	if( directoryExists( "/home/travis" ) ){
+
+        this.engineProvider = new tests.resources.app.coldbox.system.core.util.CFMLEngine().getEngine();
+
+        if( this.engineProvider == "LUCEE" ){
+    		// Lucee syntax
+            this.datasources[ "cborm_versioning" ] = {
+    			  class 			: 'org.gjt.mm.mysql.Driver',
+    			  connectionString	: 'jdbc:mysql://localhost:3306/cborm_versioning?useUnicode=true&characterEncoding=UTF-8&useLegacyDatetimeCode=true&',
+    			  username			: 'root'
+    		};	
+        } else {
+            // Adobe syntax
+        	this.datasources[ "cborm_versioning" ] = {
+				driver  : 'mysql5',
+				host    : 'localhost',
+				port    : 3306,
+				database: 'cborm_versioning',
+				username: 'root'
+			};
+        }
+	}
+
     // created in cfadmin
     this.datasource = "cborm_versioning";
     this.mappings[ "/cborm" ] = rootPath & "modules/cborm";
@@ -38,6 +62,8 @@ component {
     };
 
     function onRequestStart() {
+        structDelete( application, "cbController" );
+		structDelete( application, "wirebox" );	
         ORMReload();
     }
 }

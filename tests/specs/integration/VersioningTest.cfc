@@ -2,9 +2,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
     function run() {
         describe( "Versioning ORM Entities", function() {
             beforeEach( function () {
-                variables.versioner = prepareMock(
-                    application.wirebox.getInstance( "Versioner@cborm-versioning" )
-                );
+                variables.versioner = application.wirebox.getInstance( "Versioner@cborm-versioning" );
             } );
             afterEach( function() {
                 var BaseORMService = application.wirebox.getInstance( "BaseORMService@cborm" );
@@ -21,6 +19,9 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
             } );
 
             it( "only versions entities with a 'versioned' attribute on the component", function() {
+                
+                prepareMock( versioner );
+
                 versioner.$( "version" );
 
                 var entity = application.wirebox.getInstance( "NonVersionedModel" );
@@ -44,7 +45,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                     var mockEvent = createMock( "coldbox.system.web.context.RequestContext" );
                     var mockInterceptData = { entity = entity };
 
-                    versioner.ORMPreInsert( mockEvent, mockInterceptData );
+                    versioner.ORMPreInsert( event=mockEvent, interceptData=mockInterceptData );
 
                     var versions = application.wirebox.getInstance( "Version@cborm-versioning" )
                         .findAllWhere(

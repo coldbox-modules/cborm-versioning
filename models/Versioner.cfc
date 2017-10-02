@@ -3,6 +3,7 @@ component {
     property name="wirebox" inject="wirebox";
     property name="BaseORMService" inject="BaseORMService@cborm";
     property name="Mementoizer" inject="Mementoizer@cborm-versioning";
+    property name="versionService" inject="entityService:Version";
 
     /**
     * Create a version for `versioned` entites on insert.
@@ -61,21 +62,22 @@ component {
         date createdTime = now(),
         boolean save = true
     ) {
-        var version = wirebox.getInstance( "Version@cborm-versioning" );
-        version.setModelName( BaseORMService.getEntityGivenName( entity ) );
-        version.setModelId( getPrimaryKeyValue( entity ) );
-        version.setModelMemento( Mementoizer.generate( entity ) );
-        version.setCreatedTime( createdTime );
+        var newVersion = versionService.new();
+
+        newVersion.setModelName( BaseORMService.getEntityGivenName( entity ) );
+        newVersion.setModelId( getPrimaryKeyValue( entity ) );
+        newVersion.setModelMemento( Mementoizer.generate( entity ) );
+        newVersion.setCreatedTime( createdTime );
 
         if ( save ) {
-            version.save();
+            newVersion.save();
         }
 
         if ( shouldTrimVersions( entity ) ) {
             trimVersions( entity );
         }
 
-        return version;
+        return newVersion;
     }
 
     /**

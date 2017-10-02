@@ -95,7 +95,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
 
             describe( "many-to-one relationships", function() {
                 it( "can convert when there are no many-to-one relationships added", function() {
-                    var manyToOneModel = application.wirebox.getInstance( "manyToOneModel" );
+                    var manyToOneModel = application.wirebox.getInstance( "ManyToOneModel" );
                     manyToOneModel.setId( 1 );
                     manyToOneModel.setPropertyB( "bar" );
 
@@ -109,7 +109,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                 } );
 
                 it( "can convert when there is a many-to-one relationship added", function() {
-                    var manyToOneModel = application.wirebox.getInstance( "manyToOneModel" );
+                    var manyToOneModel = application.wirebox.getInstance( "ManyToOneModel" );
                     manyToOneModel.setId( 1 );
                     manyToOneModel.setPropertyB( "baz" );
                     
@@ -129,7 +129,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
 
             describe( "many-to-many relationships", function() {
                 it( "can convert when there are no many-to-many relationships added", function() {
-                    var manyToManyA = application.wirebox.getInstance( "manyToManyA" );
+                    var manyToManyA = application.wirebox.getInstance( "ManyToManyA" );
                     manyToManyA.setId( 1 );
                     manyToManyA.setPropertyA( "bar" );
 
@@ -143,11 +143,11 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                 } );
 
                 it( "can convert when there is a many-to-many relationship added", function() {
-                    var manyToManyA = application.wirebox.getInstance( "manyToManyA" );
+                    var manyToManyA = application.wirebox.getInstance( "ManyToManyA" );
                     manyToManyA.setId( 1 );
                     manyToManyA.setPropertyA( "bar" );
 
-                    var manyToManyB = application.wirebox.getInstance( "manyToManyB" );
+                    var manyToManyB = application.wirebox.getInstance( "ManyToManyB" );
                     manyToManyB.setId( 1 );
                     manyToManyA.addRelationshipA( manyToManyB );
 
@@ -161,15 +161,15 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                 } );
 
                 it( "can convert when there are many many-to-many relationships added", function() {
-                    var manyToManyA = application.wirebox.getInstance( "manyToManyA" );
+                    var manyToManyA = application.wirebox.getInstance( "ManyToManyA" );
                     manyToManyA.setId( 1 );
                     manyToManyA.setPropertyA( "bar" );
 
-                    var manyToManyB1 = application.wirebox.getInstance( "manyToManyB" );
+                    var manyToManyB1 = application.wirebox.getInstance( "ManyToManyB" );
                     manyToManyB1.setId( 1 );
                     manyToManyA.addRelationshipA( manyToManyB1 );
 
-                    var manyToManyB2 = application.wirebox.getInstance( "manyToManyB" );
+                    var manyToManyB2 = application.wirebox.getInstance( "ManyToManyB" );
                     manyToManyB2.setId( 3 );
                     manyToManyA.addRelationshipA( manyToManyB2 );
 
@@ -185,7 +185,7 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
 
             describe( "one-to-one relationships", function() {
                 it( "can convert when there is no one-to-one relationship added", function() {
-                    var oneToOneA = application.wirebox.getInstance( "oneToOneA" );
+                    var oneToOneA = application.wirebox.getInstance( "OneToOneA" );
                     oneToOneA.setId( 1 );
                     oneToOneA.setPropertyA( "bar" );
 
@@ -199,11 +199,11 @@ component extends="tests.resources.ModuleIntegrationSpec" appMapping="/app" {
                 } );
 
                 it( "can convert when there is a one-to-one relationship added", function() {
-                    var oneToOneA = application.wirebox.getInstance( "oneToOneA" );
+                    var oneToOneA = application.wirebox.getInstance( "OneToOneA" );
                     oneToOneA.setId( 1 );
                     oneToOneA.setPropertyA( "bar" );
 
-                    var oneToOneB = application.wirebox.getInstance( "oneToOneB" );
+                    var oneToOneB = application.wirebox.getInstance( "OneToOneB" );
                     oneToOneB.setId( 1 );
                     oneToOneA.setRelationshipA( oneToOneB );
 

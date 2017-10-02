@@ -23,7 +23,8 @@
     },
     "installPaths":{
         "testbox":"testbox",
-        "coldbox":"tests/resources/app/coldbox"
+        "coldbox":"tests/resources/app/coldbox",
+        "cborm":"modules/cborm"
     },
     "scripts":{
         "postVersion":"package set location='coldbox-modules/cborm-versioning#v`package version`'",
